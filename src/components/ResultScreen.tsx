@@ -1,7 +1,4 @@
-import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { RotateCcw, Download, ExternalLink } from 'lucide-react';
-import { Question, Answer, symptomPatternMatrix, herbRecipeDatabase, diagnosisDatabase } from '../App';
+import { Question, Answer, symptomPatternMatrix, herbRecipeDatabase } from '../App';
 
 interface ResultScreenProps {
   questions: Question[];
@@ -126,7 +123,6 @@ export default function ResultScreen({ questions, answers, onRestart, language }
   const results = calculateDiagnosis();
 
   const generatePDF = () => {
-    // PDF生成のロジック（実装は簡略化）
     const content = results.map(result => `
 ${result.category} (スコア: ${result.score})
 症状: ${result.symptoms.join(', ')}
@@ -146,44 +142,44 @@ ${result.category} (スコア: ${result.score})
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Card className="mb-8">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold text-green-700">
+      <div className="rounded-lg border bg-white text-gray-800 shadow-sm mb-8">
+        <div className="flex flex-col space-y-1.5 p-6 text-center">
+          <h3 className="text-2xl font-bold text-green-700">
             {language === 'ja' ? '診断結果' : 'Diagnosis Results'}
-          </CardTitle>
+          </h3>
           <p className="text-gray-600 mt-2">
             {language === 'ja' 
               ? 'あなたの体質と症状に基づいた個別の診断結果です' 
               : 'Personalized diagnosis based on your constitution and symptoms'
             }
           </p>
-        </CardHeader>
-      </Card>
+        </div>
+      </div>
 
       {results.length === 0 ? (
-        <Card>
-          <CardContent className="text-center py-12">
+        <div className="rounded-lg border bg-white text-gray-800 shadow-sm">
+          <div className="p-6 pt-0 text-center py-12">
             <p className="text-lg text-gray-600">
               {language === 'ja' 
                 ? '特に気になる症状は検出されませんでした。健康的な生活を心がけましょう。' 
                 : 'No significant symptoms detected. Continue maintaining a healthy lifestyle.'
               }
             </p>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       ) : (
         <div className="space-y-6">
           {results.map((result, index) => (
-            <Card key={index} className="border-l-4 border-l-green-500">
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
+            <div key={index} className="rounded-lg border bg-white text-gray-800 shadow-sm border-l-4 border-l-green-500">
+              <div className="flex flex-col space-y-1.5 p-6">
+                <h3 className="text-xl font-semibold leading-none tracking-tight flex items-center justify-between">
                   <span>{result.category}</span>
                   <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded">
                     スコア: {result.score}
                   </span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+                </h3>
+              </div>
+              <div className="p-6 pt-0">
                 {result.symptoms.length > 0 && (
                   <div className="mb-4">
                     <h4 className="font-semibold mb-2">検出された症状:</h4>
@@ -211,39 +207,35 @@ ${result.category} (スコア: ${result.score})
                             <p>推奨頻度: {recipe.recommended_frequency}</p>
                           </div>
                           <div className="mt-2">
-                            <Button size="sm" variant="outline" className="text-xs">
-                              <ExternalLink className="h-3 w-3 mr-1" />
+                            <button className="inline-flex items-center justify-center rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300 bg-white hover:bg-gray-50 hover:text-gray-900 h-8 px-3">
                               詳細を見る
-                            </Button>
+                            </button>
                           </div>
                         </div>
                       ))}
                     </div>
                   </div>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       )}
 
       <div className="flex justify-center gap-4 mt-8">
-        <Button
+        <button
           onClick={generatePDF}
-          variant="outline"
-          className="flex items-center gap-2"
+          className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300 bg-white hover:bg-gray-50 hover:text-gray-900 h-10 px-4 py-2"
         >
-          <Download className="h-4 w-4" />
           {language === 'ja' ? '結果をダウンロード' : 'Download Results'}
-        </Button>
+        </button>
         
-        <Button
+        <button
           onClick={onRestart}
-          className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
+          className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-green-600 text-white hover:bg-green-700 h-10 px-4 py-2"
         >
-          <RotateCcw className="h-4 w-4" />
           {language === 'ja' ? 'もう一度診断する' : 'Take Diagnosis Again'}
-        </Button>
+        </button>
       </div>
     </div>
   );

@@ -1,7 +1,4 @@
 import { useState } from 'react';
-import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Question, Answer } from '../App';
 
 interface QuestionScreenProps {
@@ -70,18 +67,18 @@ export default function QuestionScreen({
         </div>
       </div>
 
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle className="text-xl font-semibold text-gray-800">
+      <div className="rounded-lg border bg-white text-gray-800 shadow-sm mb-8">
+        <div className="flex flex-col space-y-1.5 p-6">
+          <h3 className="text-xl font-semibold leading-none tracking-tight text-gray-800">
             {language === 'ja' ? question.question : question.questionEn}
-          </CardTitle>
+          </h3>
           {question.category && (
             <p className="text-sm text-gray-600 mt-2">
               カテゴリ: {language === 'ja' ? question.category : question.categoryEn}
             </p>
           )}
-        </CardHeader>
-        <CardContent>
+        </div>
+        <div className="p-6 pt-0">
           {question.type === 'radio' && question.options && (
             <div className="space-y-3">
               {question.options.map((option, index) => (
@@ -130,31 +127,28 @@ export default function QuestionScreen({
               onChange={(e) => handleInputChange(e.target.value)}
             />
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       <div className="flex justify-between">
-        <Button
-          variant="outline"
+        <button
           onClick={onPrev}
           disabled={questionIndex === 0}
-          className="flex items-center gap-2"
+          className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300 bg-white hover:bg-gray-50 hover:text-gray-900 h-10 px-4 py-2"
         >
-          <ChevronLeft className="h-4 w-4" />
-          {language === 'ja' ? '前へ' : 'Previous'}
-        </Button>
+          ← {language === 'ja' ? '前へ' : 'Previous'}
+        </button>
 
-        <Button
+        <button
           onClick={onNext}
           disabled={!canProceed}
-          className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
+          className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-green-600 text-white hover:bg-green-700 h-10 px-4 py-2"
         >
           {questionIndex === totalQuestions - 1 
             ? (language === 'ja' ? '結果を見る' : 'View Results')
             : (language === 'ja' ? '次へ' : 'Next')
-          }
-          <ChevronRight className="h-4 w-4" />
-        </Button>
+          } →
+        </button>
       </div>
     </div>
   );
