@@ -44,29 +44,29 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-gray-200;
   }
   
   body {
-    @apply bg-background text-foreground;
+    @apply bg-white text-gray-900;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 }
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
   }
   
   .btn-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+    @apply bg-green-600 text-white hover:bg-green-700;
   }
   
   .btn-secondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+    @apply bg-gray-100 text-gray-900 hover:bg-gray-200;
   }
   
   .btn-outline {
-    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+    @apply border border-gray-300 bg-white hover:bg-gray-50 hover:text-gray-900;
   }
 }
