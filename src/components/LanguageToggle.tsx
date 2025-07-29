@@ -1,5 +1,4 @@
-import React from 'react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { Globe } from 'lucide-react';
 
 interface LanguageToggleProps {
